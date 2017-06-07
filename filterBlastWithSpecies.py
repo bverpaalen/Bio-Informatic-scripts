@@ -8,16 +8,17 @@
 #fileToOpenExtension: Extension of the files you want to open
 
 import glob
+import os
 
 kingdomFileName="All_plant_genus_list_formatted.txt"
-pathToFiles="/home/bverpaalen/Desktop/"
+pathToFiles="/home/bverpaalen/Desktop/blastTest/"
 filesToOpen="SPLIT_*.fasta_results"
 fileToOpenExtension=".txt"
 
 def Main():
     files = getFiles()
     speciesInKingdom = getSpeciesKingdom()
-    
+    files = sorted(files, key=os.path.basename)
     for blastResult in files:
         print("Opening: "+blastResult)
         checkFileForKingdom(blastResult,speciesInKingdom)
@@ -105,6 +106,7 @@ def checkFileForKingdom(fileToOpen,speciesInKingdom):
     removed.close()
     print("Total removed lines: "+str(removedLines))
     print("Total kept lines: "+str(notRemovedLines))
+    print("Total lines: "+str(len(idsAlreadyHit)))
             
 
 Main()
